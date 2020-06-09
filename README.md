@@ -1,68 +1,113 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React yesterday
 
-## Available Scripts
+- front end JavaScript library for building UIs
 
-In the project directory, you can run:
+* set it up with `create-react-app`
 
-### `yarn start`
+  - sets up a folder
+  - initializes a Git repo
+  - install packages from npm (`react`, `react-dom`)
+  - development server `npm run start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* deploy it (continuous deployment)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+  - `git push` -> `master`
+  - Netlify will pull any new commits to `master` on the GitHub repo in, and build them
+  - producing the html/css/js files
+  - puts them online (kjshdfjsd.netlify.app)
 
-### `yarn test`
+* components
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - a blueprint for a piece of UI
+  - a function usually capitalized that returns a piece of JSX
+  - they form a "tree" or "nesting" of components
 
-### `yarn build`
+  ```jsx
+  function MyComponent() {
+    return <div>hello</div>;
+  }
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  <MyComponent />;
+  ```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+* props
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  - how components communicate between each other
+  - it is used to passing data
+  - sent from parent to child
 
-### `yarn eject`
+  ```jsx
+  function ParentComponent() {
+    return (
+      <ul className="namelist">
+        <ChildComponent name="Kelley" />
+        <ChildComponent name="Heleen" />
+        <ChildComponent name="Elsie" />
+      </ul>
+    );
+  }
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  function ChildComponent(props) {
+    return <li>Name: {props.name}</li>;
+  }
+  ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* interpolation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  - a way of combining different pieces of data into a single thing
+  - string interpolation:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    ```js
+    const myString = `Hello, ${name}`;
+    ```
 
-## Learn More
+  - JSX interpolation:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    ```jsx
+    const myJsx = <div>Hello, {name}</div>;
+    ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* mapping
 
-### Code Splitting
+  - takes an array, and produces a _new_ array by calling a transformer (mapper) callback function on every item, separately, and putting them into the new array
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+  ```jsx
+  const newArray = ["Kelley", "Heleen", "Elsie"].map((name) => {
+    return name.length;
+  });
+  // newArray <- [6, 6, 5]
+  ```
 
-### Analyzing the Bundle Size
+# React today
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+- state management
+- fetching data
+- mapping / JSX
 
-### Making a Progressive Web App
+Component just **transforms data to JSX / UI**.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```jsx
+function ChildComponent(props) {
+  return <li>Name: {props.name}</li>;
+}
+```
 
-### Advanced Configuration
+Component can have internal / managed data:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+```jsx
+function ChildComponent(props) {
+  const [surname, setSurname] = useState("");
 
-### Deployment
+  const doSomething = () => {
+    console.log("hello?");
+    setSurname("van Evert");
+  };
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+  return (
+    <li>
+      Name: {props.name} {surname}
+      <button onClick={doSomething}>change surname</button>
+    </li>
+  );
+}
+```

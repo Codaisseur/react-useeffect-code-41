@@ -1,4 +1,8 @@
-# React yesterday
+# React day 2 warmup code 41
+
+- [Lecture recording](https://drive.google.com/file/d/1Af_6m3bl5Gos7eOhExlMHUYFQUQwFZPT/view?usp=sharing)
+
+## React yesterday
 
 - front end JavaScript library for building UIs
 
@@ -78,7 +82,7 @@
   // newArray <- [6, 6, 5]
   ```
 
-# React today
+## React today
 
 - state management
 - fetching data

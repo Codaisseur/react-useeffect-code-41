@@ -2,12 +2,12 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import ParentComponent from "./components/ParentComponent";
+import Posts from "./components/Posts";
 
 function App() {
   return (
     <div>
-      <ParentComponent />
+      <Posts />
     </div>
   );
 }
